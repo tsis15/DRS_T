@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tsis.drs.dao.DocumentDao">
+
+    <select id="selectAll"  resultType="Document">
+        select * from document;
+    </select>
+
+
+    <select id="selectOne" parameterType="String" resultType="Document">
+        select * from document where document_id = #{id}
+    </select>
+
+    <select id="selectAllProcedure" statementType="CALLABLE" parameterType="hashmap" resultType="Document">
+        call uSP_DOCUMENT_LIST_R(
+            #{num},
+            #{user_id}
+        )
+    </select>
+
+    <insert id="insertDocument" statementType="CALLABLE" parameterType="Document">
+        call uSP_DOCUMENT_C(
+            #{document_id},
+            #{drafted_user_id},
+            #{reviewed_user_id},
+            #{serialnum},
+            #{title},
+            #{requestdate},
+            #{confirmdate},
+            #{rentaldate}
+        )
+    </insert>
+
+    <update id="documentUpdate" statementType="CALLABLE" parameterType="hashmap">
+        call uSP_DOCUMENT_U(
+            #{user_id},
+            #{document_id},
+            #{status}
+        )
+    </update>
+
+</mapper>
