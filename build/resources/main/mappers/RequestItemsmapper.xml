@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tsis.drs.dao.RequestItemsDao">
+
+    <select id="selectAll" resultType="Requestitems">
+        select * from requestitems;
+    </select>
+
+
+    <select id="selectOne" parameterType="String" resultType="Requestitems">
+        select * from requestitems where REQUESTITEMS_ID = #{id}
+    </select>
+
+    <insert id="insetRequestitems" statementType="CALLABLE" parameterType="Requestitems">
+        {
+            call uSP_REQUESTITEMS_C(
+                #{document_id},
+                #{item_id},
+                #{rental_date},
+                #{return_date}
+            )
+        }
+    </insert>
+
+    <select id="selectReq" statementType="CALLABLE" resultType="Reqitemsresponse">
+        {
+            call uSP_REQUESTITEMS_LIST_R()
+        }
+    </select>
+
+    <select id="delinqunet" statementType="CALLABLE" resultType="Delinquent">
+        {
+            call uSP_DELINQUENT_LIST_R()
+        }
+    </select>
+
+
+</mapper>
