@@ -43,12 +43,15 @@ public class ItemController {
 
     @ApiOperation(value = "해당 단말기의 모든 로그 정보를 반환한다.")
     @GetMapping("logpaging/{num}/{item_id}")
-    public PageInfo<ItemLog> selectAll(@PathVariable int num, @PathVariable String item_id) throws Exception {
+    public PageInfo<ItemLog> selectAllLog(@PathVariable int num, @PathVariable String item_id) throws Exception {
         int perPage = 10;
         PageHelper.startPage(num,perPage);
         PageInfo<ItemLog> of = PageInfo.of(itemService.selectAllLog(item_id),num);
 
         log.info(String.valueOf(of.getList()));
+
+        List<ItemLog> testLog = itemService.selectAllLog(item_id);
+        System.out.println("testLog >> "+testLog);
 
         return of;
     }

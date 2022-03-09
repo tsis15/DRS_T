@@ -11,14 +11,14 @@
 
     <select id="selectAllLog" parameterType="String" resultType="ItemLog">
         select
-        (select name from user where user_id = r.drafted_user_id) AS 대여자
-        ,r.rental_date AS 대여날짜
-        ,r.checker_name AS 반납확인자
-        ,r.return_date AS 반납일자
+        (select name from user where user_id = D.drafted_user_id) AS name
+        ,R.rental_date AS rental_date
+        ,R.checker_name AS checker_name
+        ,R.return_date AS return_date
         from requestitems R
         left join document D on R.document_id = D.document_id
         where item_id = #{item_id} AND D.document_status = '대여'
-        order by d.rentaldate desc;
+        order by D.rentaldate desc
     </select>
 
     <select id="selectOne" parameterType="String" resultType="Item">
