@@ -45,18 +45,18 @@ public class NoticeController {
 
     @ApiOperation(value = "검색 단어, 페이지 번호를 통해 모든 게시글를 반환한다.", response = List.class)
     @GetMapping("/{input}/{num}")
-    public PageInfo<Notice> noticeSelectAll(@PathVariable String input, @PathVariable String num) throws Exception {
+    public PageInfo<Notice> noticeSelectcondition(@PathVariable String input, @PathVariable String num) throws Exception {
         int perPage = 10;
         PageHelper.startPage(Integer.parseInt(num), perPage);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("num", num);
-        if (input.equals("noData")) {
-            map.put("input", null);
-            return new PageInfo<Notice>(noticeService.noticeSelectAll(map));
-        } else {
-            map.put("input", input);
-            return new PageInfo<Notice>(noticeService.noticeSelectcondition(map));
-        }
+        return new PageInfo<Notice>(noticeService.noticeSelectcondition(input));
+    }
+
+    @ApiOperation(value = "페이지 번호를 통해 모든 게시글를 반환한다. (검색단어 없을시)", response = List.class)
+    @GetMapping("/{num}")
+    public PageInfo<Notice> noticeSelectAll(@PathVariable String num) throws Exception {
+        int perPage = 10;
+        PageHelper.startPage(Integer.parseInt(num), perPage);
+        return new PageInfo<Notice>(noticeService.noticeSelectAll());
     }
 
     @ApiOperation(value = "게시글 삭제", response = String.class)

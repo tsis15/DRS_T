@@ -8,9 +8,9 @@ import java.util.List;
 
 @Mapper
 public interface NoticeDao {
+    public List<Notice> noticeSelectAll();
     public int deleteNotice(String notice_id);
     public int modifyNotice(Notice notice);
     public int createNotice(Notice notice);
-    public List<Notice> noticeSelectAll(HashMap<String, String> map);
-    public List<Notice> noticeSelectcondition(HashMap<String, String> map);
+    public List<Notice> noticeSelectcondition(String input);
 }

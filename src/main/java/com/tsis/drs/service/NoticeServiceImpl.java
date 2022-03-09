@@ -18,10 +18,9 @@ public class NoticeServiceImpl implements NoticeService {
     @Autowired
     public NoticeDao noticeDao;
 
-
     @Override
-    public List<Notice> noticeSelectAll(HashMap<String, String> map) {
-        return noticeDao.noticeSelectAll(map);
+    public List<Notice> noticeSelectAll() {
+        return noticeDao.noticeSelectAll();
     }
 
     @Override
@@ -40,7 +39,9 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public List<Notice> noticeSelectcondition(HashMap<String, String> map) {
-        return noticeDao.noticeSelectcondition(map);
+    public List<Notice> noticeSelectcondition(String input) {
+        return noticeDao.noticeSelectcondition(input);
     }
+
+
 }
