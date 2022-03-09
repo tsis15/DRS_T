@@ -15,7 +15,7 @@
         )
     </insert>
 
-    <select id="noticeSelectAll" statementType="CALLABLE" resultType="Notice">
+    <select id="noticeSelectAll" resultType="Notice">
                 SELECT
                     notice_id
                     ,(SELECT name FROM user U where U.user_id = N.user_id) AS user_id
@@ -28,7 +28,7 @@
                 ORDER BY create_date desc
     </select>
 
-    <select id="noticeSelectcondition" statementType="CALLABLE" parameterType="String" resultType="Notice">
+    <select id="noticeSelectcondition" parameterType="String" resultType="Notice">
             SELECT
                 notice_id
                 ,(SELECT name FROM user U where U.user_id = N.user_id) AS user_id
