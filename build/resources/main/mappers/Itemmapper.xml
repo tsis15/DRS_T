@@ -9,17 +9,17 @@
         select * from item
     </select>
 
-<!--    <select id="selectAllLog" parameterType="String" resultType="ItemLog">-->
-<!--        select-->
-<!--        (select name from user where user_id = D.drafted_user_id) AS name-->
-<!--        ,R.rental_date AS rental_date-->
-<!--        ,R.checker_name AS checker_name-->
-<!--        ,R.return_date AS return_date-->
-<!--        from requestitems R-->
-<!--        left join document D on R.document_id = D.document_id-->
-<!--        where item_id = #{item_id} AND D.document_status = '대여'-->
-<!--        order by D.rentaldate desc-->
-<!--    </select>-->
+    <select id="selectAllLog" parameterType="String" resultType="ItemLog">
+        select
+        (select name from user where user_id = D.drafted_user_id) AS name
+        ,R.rental_date AS rental_date
+        ,R.checker_name AS checker_name
+        ,R.return_date AS return_date
+        from requestitems R
+        left join document D on R.document_id = D.document_id
+        where item_id = #{item_id} AND D.document_status = '대여'
+        order by D.rentaldate desc
+    </select>
 
     <select id="selectOne" parameterType="String" resultType="Item">
         select * from item where item_id = #{id}

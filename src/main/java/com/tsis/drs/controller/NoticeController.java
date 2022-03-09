@@ -56,7 +56,11 @@ public class NoticeController {
     public PageInfo<Notice> noticeSelectAll(@PathVariable String num) throws Exception {
         int perPage = 10;
         PageHelper.startPage(Integer.parseInt(num), perPage);
-        return new PageInfo<Notice>(noticeService.noticeSelectAll());
+        List<Notice> notices = noticeService.noticeSelectAll();
+        log.info(notices.toString());
+        PageInfo<Notice> noticePageInfo = new PageInfo<Notice>(notices);
+        log.info("게시글 정보 >>>>"+ noticePageInfo);
+        return noticePageInfo;
     }
 
     @ApiOperation(value = "게시글 삭제", response = String.class)

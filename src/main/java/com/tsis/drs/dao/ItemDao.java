@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.tsis.drs.dto.Item;
 //import com.tsis.drs.dto.ItemLog;
+import com.tsis.drs.dto.ItemLog;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
@@ -15,5 +16,5 @@ public interface ItemDao {
     public void insertItem(Item item);
     public void updateItem(HashMap<String, String> map);
     public void callAlwaysUpdate();
-    //public List<ItemLog> selectAllLog(String item_id);
+    public List<ItemLog> selectAllLog(String item_id);
 }
