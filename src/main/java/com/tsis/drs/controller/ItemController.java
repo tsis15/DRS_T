@@ -5,6 +5,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tsis.drs.dto.Item;
+import com.tsis.drs.dto.ItemLog;
 import com.tsis.drs.service.ItemService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,18 @@ public class ItemController {
         int perPage = 10;
         PageHelper.startPage(num,perPage);
         PageInfo<Item> of = PageInfo.of(itemService.selectAll(),num);
+
+        log.info(String.valueOf(of.getList()));
+
+        return of;
+    }
+
+    @ApiOperation(value = "해당 단말기의 모든 로그 정보를 반환한다.")
+    @GetMapping("logpaging/{num}/{item_id}")
+    public PageInfo<ItemLog> selectAll(@PathVariable int num, @PathVariable String item_id) throws Exception {
+        int perPage = 10;
+        PageHelper.startPage(num,perPage);
+        PageInfo<ItemLog> of = PageInfo.of(itemService.selectAllLog(item_id),num);
 
         log.info(String.valueOf(of.getList()));
 

@@ -9,6 +9,17 @@
         select * from item
     </select>
 
+    <select id="selectAllLog" parameterType="String" resultType="ItemLog">
+        select
+        (select name from user where user_id = r.drafted_user_id) AS 대여자
+        ,r.rental_date AS 대여날짜
+        ,r.checker_name AS 반납확인자
+        ,r.return_date AS 반납일자
+        from requestitems R
+        left join document D on R.document_id = D.document_id
+        where item_id = #{item_id} AND D.document_status = '대여'
+        order by d.rentaldate desc;
+    </select>
 
     <select id="selectOne" parameterType="String" resultType="Item">
         select * from item where item_id = #{id}

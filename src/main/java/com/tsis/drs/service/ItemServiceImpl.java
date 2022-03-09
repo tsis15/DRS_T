@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.tsis.drs.dao.ItemDao;
 import com.tsis.drs.dto.Item;
+import com.tsis.drs.dto.ItemLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,10 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public void callAlwaysUpdate() {
         itemDao.callAlwaysUpdate();
+    }
+
+    @Override
+    public List<ItemLog> selectAllLog(String item_id) {
+        return itemDao.selectAllLog(item_id);
     }
 }
