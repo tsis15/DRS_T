@@ -65,4 +65,11 @@
             )
         }
     </update>
+
+    <select id="selectExtendItems" statementType="CALLABLE" parameterType="String" resultType="Item">
+        call uSP_DOCUMENT_EXTEND_ITEM_R(
+            #{id}
+        )
+    </select>
+
 </mapper>
