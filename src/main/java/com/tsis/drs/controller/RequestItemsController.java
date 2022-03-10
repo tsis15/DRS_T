@@ -1,5 +1,7 @@
 package com.tsis.drs.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tsis.drs.dto.Document;
 import com.tsis.drs.dto.Item;
 import com.tsis.drs.dto.Reqitemsresponse;
@@ -7,6 +9,7 @@ import com.tsis.drs.dto.Requestitems;
 import com.tsis.drs.service.DocumentService;
 import com.tsis.drs.service.RequestItemsService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +20,31 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/request")
+@Slf4j
 public class RequestItemsController {
 
     @Autowired
     RequestItemsService requestItemsService;
 
-    @ApiOperation(value = "모든 결재 문서를 반환한다.", response = List.class)
-    @GetMapping
-    public ResponseEntity<List<Requestitems>> selectAll() throws Exception {
-        System.out.println("selectAll");
-        return new ResponseEntity<List<Requestitems>>(requestItemsService.selectAll(), HttpStatus.OK);
+//    @ApiOperation(value = "모든 결재 문서를 반환한다.", response = List.class)
+//    @GetMapping
+//    public ResponseEntity<List<Requestitems>> selectAll() throws Exception {
+//        System.out.println("selectAll");
+//        return new ResponseEntity<List<Requestitems>>(requestItemsService.selectAll(), HttpStatus.OK);
+//    }
+
+    @ApiOperation(value = "모든 결재 문서를 반환한다.")
+    @GetMapping("paging/{num}")
+    public PageInfo<Requestitems> selectAll(@PathVariable int num) throws Exception {
+//        int perPage = 10;
+//        PageHelper.startPage(Integer.parseInt(num),perPage);
+        int perPage = 5;
+        PageHelper.startPage(num,perPage);
+        PageInfo<Requestitems> of = PageInfo.of(requestItemsService.selectAll(),num);
+
+        log.info(String.valueOf(of.getList()));
+
+        return of;
     }
 
     @ApiOperation(value = "하나의 결재 문서를 반환한다.", response = Requestitems.class)
