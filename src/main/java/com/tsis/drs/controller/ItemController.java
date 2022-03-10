@@ -30,15 +30,11 @@ public class ItemController {
     @ApiOperation(value = "모든 단말기 정보를 반환한다.")
     @GetMapping("paging/{num}")
     public PageInfo<Item> selectAll(@PathVariable int num) throws Exception {
-//        int perPage = 10;
-//        PageHelper.startPage(Integer.parseInt(num),perPage);
         int perPage = 10;
         PageHelper.startPage(num,perPage);
-        PageInfo<Item> of = PageInfo.of(itemService.selectAll(),num);
-
-        log.info(String.valueOf(of.getList()));
-
-        return of;
+        List<Item> items = itemService.selectAll();
+        PageInfo<Item> itemPageInfo = new PageInfo<Item>(items);
+        return itemPageInfo;
     }
 
     @ApiOperation(value = "해당 단말기의 모든 로그 정보를 반환한다.")
@@ -46,11 +42,9 @@ public class ItemController {
     public PageInfo<ItemLog> selectAllLog(@PathVariable int num, @PathVariable String item_id) throws Exception {
         int perPage = 10;
         PageHelper.startPage(num,perPage);
-        PageInfo<ItemLog> of = PageInfo.of(itemService.selectAllLog(item_id),num);
-
-        log.info(String.valueOf(of.getList()));
-
-        return of;
+        List<ItemLog> itemLogs = itemService.selectAllLog(item_id);
+        PageInfo<ItemLog> itemLogsPageInfo = new PageInfo<ItemLog>(itemLogs);
+        return itemLogsPageInfo;
     }
 
     @ApiOperation(value = "하나의 단말기 정보를 반환한다.", response = Item.class)

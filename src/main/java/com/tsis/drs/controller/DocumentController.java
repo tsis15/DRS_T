@@ -31,67 +31,43 @@ public class DocumentController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ItemService itemService;
+
     @ApiOperation(value = "num = 페이징 번호, id= 사번을 통한 Document 결과 조회 (drafted_user_id : 이름)", response = List.class)
     @GetMapping("/{num}/{user_id}")
     public PageInfo<DocumentResponse> selectDocument(@PathVariable int num, @PathVariable String user_id) throws Exception {
         User user = userService.selectOne(user_id);
         int perPage = 10;
         List<DocumentResponse> drlist = new ArrayList<>();
+        List<Document> list;
         PageHelper.startPage(num, perPage);
+        if(user.getRole() == 2)
+            list = documentService.selectAll();
+        else
+            list = documentService.showUserD(user.getUser_id());
 
-        if (user.getRole() == 2) {
-            List<Document> list = documentService.selectAll();
-            for (Document doc : list) {
-                log.info(doc.toString());
-                String drname = userService.selectOne(doc.getDrafted_user_id()).getName();
-                String rvname = userService.selectOne(doc.getReviewed_user_id()).getName();
-                String apname=null;
-                if (doc.getApproval_user_id()!=null) {
-                    apname = userService.selectOne(doc.getApproval_user_id()).getName();
-                }
-                log.info(doc.toString());
-                drlist.add(new DocumentResponse(doc, drname, rvname,apname));
+        for (Document doc : list) {
+            log.info(doc.toString());
+            String drname = userService.selectOne(doc.getDrafted_user_id()).getName();
+            String rvname = userService.selectOne(doc.getReviewed_user_id()).getName();
+            String apname=null;
+            if (doc.getApproval_user_id()!=null) {
+                apname = userService.selectOne(doc.getApproval_user_id()).getName();
             }
-            PageInfo<DocumentResponse> of = new PageInfo<DocumentResponse>(drlist);
-            log.info(String.valueOf(of.getList()) + " >>>>" + num);
-            return of;
-        } else {
-            List<Document> list = documentService.showUserD(user_id);
-            for (Document doc : list) {
-                String drname = userService.selectOne(doc.getDrafted_user_id()).getName();
-                String rvname = userService.selectOne(doc.getReviewed_user_id()).getName();
-                String apname=null;
-                if (doc.getApproval_user_id()!=null) {
-                    apname = userService.selectOne(doc.getApproval_user_id()).getName();
-                }
-                drlist.add(new DocumentResponse(doc, drname, rvname,apname));
+            String document_id = doc.getDocument_id();
+            List<String> itemIds = documentService.documentItemIds(document_id);
+            List<String> itemNames = new ArrayList<>();
+            for(String itemId : itemIds) {
+                itemNames.add(itemService.selectOne(itemId).getName());
             }
-            PageInfo<DocumentResponse> of = new PageInfo<DocumentResponse>(drlist);
-            log.info(String.valueOf(of.getList()) + " >>>>" + num);
-            return of;
+            log.info(doc.toString());
+            drlist.add(new DocumentResponse(doc, drname, rvname,apname,itemNames));
         }
-
+        PageInfo<DocumentResponse> of = new PageInfo<DocumentResponse>(drlist);
+        log.info(String.valueOf(of.getList()) + " >>>>" + num);
+        return of;
     }
-    @ApiOperation(value = "하나의 결재 문서를 반환한다.", response = Requestitems.class)
-    @GetMapping("{id}")
-    public ResponseEntity<Document> selectOne(@PathVariable String id) throws Exception {
-        return new ResponseEntity<Document>(documentService.selectOne(id), HttpStatus.OK);
-    }
-
-
-
-//    @ApiOperation(value = "하나의 결재 문서를 반환한다.", response = Document.class)
-//    @GetMapping("{id}")
-//    public ResponseEntity<Document> selectOne(@PathVariable String id) throws Exception {
-//        return new ResponseEntity<Document>(documentService.selectOne(id), HttpStatus.OK);
-//    }
-
-//    @ApiOperation(value = "결재문서 승인시) 단말기 상태가 '예약' -> '대여불가,예약불가'로 변경, 아니라면 '대여중,예약가능'으로 변경")
-//    @PutMapping("approval/{document_id}")
-//    public void documentApproval(@PathVariable String document_id) throws Exception {
-//        log.info("documentApproval >>>" + document_id);
-//        documentService.documentApproval(document_id);
-//    }
 
     /**
      * 기안문 최초 생성

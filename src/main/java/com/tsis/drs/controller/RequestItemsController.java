@@ -36,15 +36,11 @@ public class RequestItemsController {
     @ApiOperation(value = "모든 결재 문서를 반환한다.")
     @GetMapping("paging/{num}")
     public PageInfo<Requestitems> selectAll(@PathVariable int num) throws Exception {
-//        int perPage = 10;
-//        PageHelper.startPage(Integer.parseInt(num),perPage);
         int perPage = 10;
         PageHelper.startPage(num,perPage);
-        PageInfo<Requestitems> of = PageInfo.of(requestItemsService.selectAll(),num);
-
-        log.info(String.valueOf(of.getList()));
-
-        return of;
+        List<Requestitems> requestitems = requestItemsService.selectAll();
+        PageInfo<Requestitems> requestitemsPageInfo = new PageInfo<Requestitems>(requestitems);
+        return requestitemsPageInfo;
     }
 
     @ApiOperation(value = "하나의 결재 문서를 반환한다.", response = Requestitems.class)

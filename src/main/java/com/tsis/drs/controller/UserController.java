@@ -27,18 +27,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-//    @ApiOperation(value = "모든 회원 정보를 반환한다.", response = List.class)
-//    @GetMapping("paging/{num}")
-//    public PageInfo<User> selectAll(@PathVariable int num) throws Exception {
-//        int perPage = 10;
-//        PageHelper.startPage(num,perPage);
-//        PageInfo<User> of = PageInfo.of(userService.selectAll(),num);
-//
-//        log.info(String.valueOf(of.getList()));
-//
-//        return of;
-//    }
-
     @ApiOperation(value = "검색 단어, 페이지 번호를 통해 모든 회원 목록을 반환한다.", response = List.class)
     @GetMapping("/{input}/{num}")
     public PageInfo<User> Selectcondition(@PathVariable String input, @PathVariable String num) throws Exception {
