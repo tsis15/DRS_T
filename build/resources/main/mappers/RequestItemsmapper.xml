@@ -6,7 +6,7 @@
 <mapper namespace="com.tsis.drs.dao.RequestItemsDao">
 
     <select id="selectAll" resultType="Requestitems">
-        select * from requestitems;
+        select * from requestitems
     </select>
 
 

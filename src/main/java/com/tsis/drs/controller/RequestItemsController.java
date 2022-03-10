@@ -38,7 +38,7 @@ public class RequestItemsController {
     public PageInfo<Requestitems> selectAll(@PathVariable int num) throws Exception {
 //        int perPage = 10;
 //        PageHelper.startPage(Integer.parseInt(num),perPage);
-        int perPage = 5;
+        int perPage = 10;
         PageHelper.startPage(num,perPage);
         PageInfo<Requestitems> of = PageInfo.of(requestItemsService.selectAll(),num);
 
