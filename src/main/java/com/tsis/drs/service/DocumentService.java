@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface DocumentService {
-
+    public Document selectOne(String id);
     public List<Document> selectAll();
     public List<Document> showUserD(String id);
     public List<Document> selectAllProcedure(HashMap<String, String> map);

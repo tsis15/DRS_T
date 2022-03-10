@@ -98,6 +98,10 @@ public class DocumentController {
         }
 
     }
+    @PostMapping("/{document_id}")
+    public Document selectOne(@PathVariable String document_id){
+        return documentService.selectOne(document_id);
+    }
 
     /**
      * 관리자 승인

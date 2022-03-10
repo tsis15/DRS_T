@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper
 public interface DocumentDao {
     public List<Document> selectAll();
+    public Document selectOne(String id);
     public List<Document> showUserD(String id);
     public List<Document> selectAllProcedure(HashMap<String,String> map);
     public void insertDocument(Document document);
