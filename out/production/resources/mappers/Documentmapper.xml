@@ -16,6 +16,12 @@
         where (d.DRAFTED_USER_ID = u.USER_ID or d.REVIEWED_USER_ID= u.USER_ID) and(u.USER_ID =#{id})
     </select>
 
+    <select id="documentItemIds" parameterType="String" resultType="String">
+        select item_id
+        from requestitems
+        where document_id = #{document_id}
+    </select>
+
     <select id="selectAllProcedure" statementType="CALLABLE" parameterType="hashmap" resultType="Document">
         call uSP_DOCUMENT_LIST_R(
         #{num},

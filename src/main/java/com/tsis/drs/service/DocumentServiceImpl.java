@@ -2,6 +2,7 @@ package com.tsis.drs.service;
 
 import com.tsis.drs.dao.DocumentDao;
 import com.tsis.drs.dto.Document;
+import com.tsis.drs.dto.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,11 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public void documentUpdate(HashMap<String, String> map) {
         documentDao.documentUpdate(map);
+    }
+
+    @Override
+    public List<String> documentItemIds(String document_id) {
+        return documentDao.documentItemIds(document_id);
     }
 
 

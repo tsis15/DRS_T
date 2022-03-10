@@ -31,6 +31,9 @@ public class DocumentController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ItemService itemService;
+
     @ApiOperation(value = "num = 페이징 번호, id= 사번을 통한 Document 결과 조회 (drafted_user_id : 이름)", response = List.class)
     @GetMapping("/{num}/{user_id}")
     public PageInfo<DocumentResponse> selectDocument(@PathVariable int num, @PathVariable String user_id) throws Exception {
@@ -49,8 +52,15 @@ public class DocumentController {
                 if (doc.getApproval_user_id()!=null) {
                     apname = userService.selectOne(doc.getApproval_user_id()).getName();
                 }
+                String document_id = doc.getDocument_id();
+                List<String> itemIds = documentService.documentItemIds(document_id);
+                List<String> itemNames = new ArrayList<>();
+                for(String itemId : itemIds) {
+                    String name = itemService.selectOne(itemId).getName();
+                    itemNames.add(name);
+                }
                 log.info(doc.toString());
-                drlist.add(new DocumentResponse(doc, drname, rvname,apname));
+                drlist.add(new DocumentResponse(doc, drname, rvname,apname,itemNames));
             }
             PageInfo<DocumentResponse> of = new PageInfo<DocumentResponse>(drlist);
             log.info(String.valueOf(of.getList()) + " >>>>" + num);
@@ -64,7 +74,14 @@ public class DocumentController {
                 if (doc.getApproval_user_id()!=null) {
                     apname = userService.selectOne(doc.getApproval_user_id()).getName();
                 }
-                drlist.add(new DocumentResponse(doc, drname, rvname,apname));
+                String document_id = doc.getDocument_id();
+                List<String> itemIds = documentService.documentItemIds(document_id);
+                List<String> itemNames = new ArrayList<>();
+                for(String itemId : itemIds) {
+                    String name = itemService.selectOne(itemId).getName();
+                    itemNames.add(name);
+                }
+                drlist.add(new DocumentResponse(doc, drname, rvname,apname,itemNames));
             }
             PageInfo<DocumentResponse> of = new PageInfo<DocumentResponse>(drlist);
             log.info(String.valueOf(of.getList()) + " >>>>" + num);
