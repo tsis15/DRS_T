@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+
 @Service
 public class ItemServiceImpl implements ItemService{
 
@@ -28,6 +30,13 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public void insertItem(Item item) {
+        UUID id = UUID.randomUUID();
+        if(item.getItem_id() == null) {
+            item.setItem_id(id.toString());
+        }
+        else if(item.getItem_id().equals("")){
+            item.setItem_id(id.toString());
+        }
         itemDao.insertItem(item);
     }
 

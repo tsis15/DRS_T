@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tsis.drs.dao.ItemDao">
+
+    <select id="selectAll" resultType="Item">
+        select * from item
+    </select>
+
+    <select id="selectAllLog" parameterType="String" resultType="ItemLog">
+        select
+        (select name from user where user_id = D.drafted_user_id) AS name
+        ,(select dept_name from user where user_id = D.drafted_user_id) AS dept_name
+        ,R.rental_date AS rental_date
+        ,R.checker_name AS checker_name
+        ,R.return_date AS return_date
+        from requestitems R
+        left join document D on R.document_id = D.document_id
+        where item_id = #{item_id} AND D.document_status = '대여'
+        order by D.rentaldate desc
+    </select>
+
+    <select id="selectOne" parameterType="String" resultType="Item">
+        select * from item where item_id = #{id}
+    </select>
+
+<!--    <select id="selectAll" statementType="CALLABLE" resultType="Item">-->
+<!--        {-->
+<!--            CALL uSP_ITEM_R()-->
+<!--        }-->
+<!--    </select>-->
+
+
+
+    <insert id="insertItem" statementType="CALLABLE" parameterType="Item">
+        {
+        call uSP_ITEM_CU(
+        #{item_id},
+        #{serialnum},
+        #{name},
+        #{price},
+        #{brand},
+        #{os},
+        #{link},
+        #{category},
+        #{status},
+        #{memo}
+        )
+        }
+    </insert>
+
+    <insert id="callAlwaysUpdate" statementType="CALLABLE">
+        {
+            call uSP_ALWAYS_UPDATE()
+        }
+    </insert>
+    <update id="updateItem" statementType="CALLABLE" parameterType="hashmap">
+        {
+            call uSP_ITEM_STATUS_U(
+                #{user_id},
+                #{requestitmes_id},
+                #{item_id}
+            )
+        }
+    </update>
+
+    <select id="selectExtendItems" statementType="CALLABLE" parameterType="String" resultType="Item">
+        call uSP_DOCUMENT_EXTEND_ITEM_R(
+            #{id}
+        )
+    </select>
+
+</mapper>

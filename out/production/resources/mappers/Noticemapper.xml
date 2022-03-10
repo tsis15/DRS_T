@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tsis.drs.dao.NoticeDao">
+
+    <insert id="createNotice" statementType="CALLABLE" parameterType="Notice">
+        call uSP_NOTICE_CU(
+            #{notice_id},
+            #{user_id},
+            #{category},
+            #{title},
+            #{content}
+        )
+    </insert>
+
+    <select id="noticeSelectAll" resultType="Notice">
+                SELECT
+                    notice_id
+                    ,(SELECT name FROM user U where U.user_id = N.user_id) AS user_id
+                    ,create_date
+                    ,modify_date
+                    ,category
+                    ,title
+                    ,content
+                FROM notice N
+                ORDER BY create_date desc
+    </select>
+
+    <select id="noticeSelectcondition" parameterType="String" resultType="Notice">
+            SELECT
+                notice_id
+                ,(SELECT name FROM user U where U.user_id = N.user_id) AS user_id
+                ,create_date
+                ,modify_date
+                ,category
+                ,title
+                ,content
+            FROM notice N
+            WHERE title like CONCAT('%',#{input},'%')
+            order by create_date desc
+    </select>
+
+    <delete id="deleteNotice" statementType="CALLABLE" parameterType="String">
+        call uSP_NOTICE_D(
+            #{notice_id}
+        )
+    </delete>
+
+<!--    <update id="modifyNotice">
+        update notice
+        set user_id = #{user_id},
+        create_date = #{create_date},
+        modify_date = #{modify_date},
+        category = #{category},
+        title = #{title},
+        content=#{content}
+        where notice_id = #{notice_id}
+    </update>-->
+</mapper>
