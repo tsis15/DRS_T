@@ -15,7 +15,7 @@
     <select id="showUserD" parameterType="String" resultType="Document">
         select *
         from user u, document d
-        where (d.DRAFTED_USER_ID = u.USER_ID or d.REVIEWED_USER_ID= u.USER_ID) and(u.USER_ID =#{id})
+        where (d.DRAFTED_USER_ID = u.USER_ID and d.REVIEWED_USER_ID= u.USER_ID) and(u.USER_ID =#{id})
     </select>
 
     <select id="documentItemIds" parameterType="String" resultType="String">

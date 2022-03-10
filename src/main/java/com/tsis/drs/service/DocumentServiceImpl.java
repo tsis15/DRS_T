@@ -2,10 +2,13 @@ package com.tsis.drs.service;
 
 import com.tsis.drs.dao.DocumentDao;
 import com.tsis.drs.dto.Document;
+import com.tsis.drs.dto.DocumentResponse;
 import com.tsis.drs.dto.Item;
+import com.tsis.drs.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +17,10 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Autowired
     public DocumentDao documentDao;
+    @Autowired
+    UserService userService;
+    @Autowired
+    DocumentService documentService;
 
     @Override
     public List<Document> selectAll() {

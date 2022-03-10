@@ -5,6 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fc91b67-9b56-4f65-b601-231313418cc7" name="Changes" comment="modify webconfig">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/tsis/drs/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/tsis/drs/config/WebConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/tsis/drs/controller/DocumentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/tsis/drs/controller/DocumentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/tsis/drs/service/DocumentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/tsis/drs/service/DocumentServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/resources/mappers/Documentmapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/mappers/Documentmapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsis/drs/controller/DocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsis/drs/controller/DocumentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsis/drs/dto/DocumentResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsis/drs/dto/DocumentResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsis/drs/service/DocumentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsis/drs/service/DocumentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/Documentmapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/Documentmapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -193,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646940590946</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="modify webconfig">
+      <created>1646941051536</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1646941051536</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

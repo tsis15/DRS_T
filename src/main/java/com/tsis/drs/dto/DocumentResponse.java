@@ -2,6 +2,7 @@ package com.tsis.drs.dto;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,6 @@ public class DocumentResponse {
     String reviewed_user_name;
     String approval_user_name;
     List<String> itemnames;
-
     public DocumentResponse(Document doc, String drname, String rvname, String tmp, List<String> itemnames) {
         this.document = doc;
         this.drafted_user_name = drname;

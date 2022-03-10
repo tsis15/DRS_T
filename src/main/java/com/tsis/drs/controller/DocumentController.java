@@ -1,5 +1,6 @@
 package com.tsis.drs.controller;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tsis.drs.dto.*;
@@ -34,9 +35,9 @@ public class DocumentController {
     @Autowired
     ItemService itemService;
 
-    @ApiOperation(value = "num = 페이징 번호, id= 사번을 통한 Document 결과 조회 (drafted_user_id : 이름)", response = List.class)
+    @ApiOperation(value = "num = 페이징 번호, id= 사번을 통한 Document 결과 조회 (drafted_user_id : 이름)")
     @GetMapping("/{num}/{user_id}")
-    public PageInfo<DocumentResponse> selectDocument(@PathVariable int num, @PathVariable String user_id) throws Exception {
+    public PageInfo<DocumentResponse> selectAll(@PathVariable int num, @PathVariable String user_id) throws Exception {
         User user = userService.selectOne(user_id);
         int perPage = 10;
         List<DocumentResponse> drlist = new ArrayList<>();
