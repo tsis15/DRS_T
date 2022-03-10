@@ -38,9 +38,6 @@
         #{reviewed_user_id},
         #{serialnum},
         #{title},
-        #{requestdate},
-        #{confirmdate},
-        #{rentaldate},
         #{document_status}
         )
     </insert>
