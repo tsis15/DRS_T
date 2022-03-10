@@ -99,8 +99,17 @@ public class DocumentController {
 
     }
     @PostMapping("/{document_id}")
-    public Document selectOne(@PathVariable String document_id){
-        return documentService.selectOne(document_id);
+    public DocumentResponse selectOne(@PathVariable String document_id){
+        Document document = documentService.selectOne(document_id);
+
+        String drname = userService.selectOne(document.getDrafted_user_id()).getName();
+        String rvname = userService.selectOne(document.getReviewed_user_id()).getName();
+        String apname=null;
+        if (document.getApproval_user_id()!=null) {
+            apname = userService.selectOne(document.getApproval_user_id()).getName();
+        }
+
+        return new DocumentResponse(document,drname,rvname,apname);
     }
 
     /**

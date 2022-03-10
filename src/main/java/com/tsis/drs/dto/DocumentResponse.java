@@ -23,4 +23,10 @@ public class DocumentResponse {
         this.approval_user_name = tmp;
         this.itemnames = itemnames;
     }
+    public DocumentResponse(Document doc, String drname, String rvname, String tmp){
+        this.document = doc;
+        this.drafted_user_name = drname;
+        this.reviewed_user_name = rvname;
+        this.approval_user_name = tmp;
+    }
 }
