@@ -26,7 +26,7 @@ public class DrsScheduled {
     private ItemService itemService;
 
 //   @Scheduled(fixedDelay = 10000)
-    @Scheduled(cron = "0 0 6 * * *")
+    @Scheduled(cron = "0 0 14 * * *")
     @GetMapping
     public void changeDate() {
         log.info("변하기전 데이터 >>>"+requestItemsService.delinqunet());
