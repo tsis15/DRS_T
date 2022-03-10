@@ -60,9 +60,16 @@
         {
             call uSP_ITEM_STATUS_U(
                 #{user_id},
-                #{requestitmes_id},
+                #{requestitems_id},
                 #{item_id}
             )
         }
     </update>
+
+    <select id="selectExtendItems" statementType="CALLABLE" parameterType="String" resultType="Item">
+        call uSP_DOCUMENT_EXTEND_ITEM_R(
+            #{id}
+        )
+    </select>
+
 </mapper>
