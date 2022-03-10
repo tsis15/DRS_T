@@ -20,6 +20,10 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    public Document selectOne(String id) {
+        return documentDao.selectOne(id);
+    }
+    @Override
     public List<Document> showUserD(String id) {
         return documentDao.showUserD(id);
     }

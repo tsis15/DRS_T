@@ -70,7 +70,15 @@ public class DocumentController {
             log.info(String.valueOf(of.getList()) + " >>>>" + num);
             return of;
         }
+
     }
+    @ApiOperation(value = "하나의 결재 문서를 반환한다.", response = Requestitems.class)
+    @GetMapping("{id}")
+    public ResponseEntity<Document> selectOne(@PathVariable String id) throws Exception {
+        return new ResponseEntity<Document>(documentService.selectOne(id), HttpStatus.OK);
+    }
+
+
 
 //    @ApiOperation(value = "하나의 결재 문서를 반환한다.", response = Document.class)
 //    @GetMapping("{id}")

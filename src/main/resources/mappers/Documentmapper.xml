@@ -8,7 +8,9 @@
     <select id="selectAll" resultType="Document">
         select * from document
     </select>
-
+    <select id="selectOne" parameterType = "String" resultType="Document">
+        select * from document where document_id = #{id}
+    </select>
     <!-- User의 문서 조회-->
     <select id="showUserD" parameterType="String" resultType="Document">
         select *
