@@ -30,7 +30,8 @@
             #{title},
             #{requestdate},
             #{confirmdate},
-            #{rentaldate}
+            #{rentaldate},
+            #{document_status}
         )
     </insert>
 

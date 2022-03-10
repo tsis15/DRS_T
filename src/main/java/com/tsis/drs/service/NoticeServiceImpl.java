@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -35,6 +36,11 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public int createNotice(Notice notice) {
+        if(notice.getNotice_id().equals("")) { // 게시글 생성할 경우 ""으로 넘어옴
+            UUID id = UUID.randomUUID();
+            notice.setNotice_id(id.toString());
+            return noticeDao.createNotice(notice);
+        }
         return noticeDao.createNotice(notice);
     }
 
