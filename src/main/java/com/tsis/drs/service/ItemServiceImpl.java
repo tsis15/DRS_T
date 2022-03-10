@@ -45,4 +45,9 @@ public class ItemServiceImpl implements ItemService{
     public List<ItemLog> selectAllLog(String item_id) {
         return itemDao.selectAllLog(item_id);
     }
+
+    @Override
+    public List<Item> selectExtendItems(String id) {
+        return itemDao.selectExtendItems(id);
+    }
 }

@@ -17,4 +17,5 @@ public interface ItemDao {
     public void updateItem(HashMap<String, String> map);
     public void callAlwaysUpdate();
     public List<ItemLog> selectAllLog(String item_id);
+    public List<Item> selectExtendItems(String id);
 }
