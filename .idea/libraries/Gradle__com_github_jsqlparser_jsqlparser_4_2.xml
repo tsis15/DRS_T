@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.jsqlparser:jsqlparser:4.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jsqlparser/jsqlparser/4.2/8372ea08d92c8cfec3e88826d258167e67f267b1/jsqlparser-4.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jsqlparser/jsqlparser/4.2/d42d76b558a0ce6a70246b2ba4722c38a4a3b648/jsqlparser-4.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

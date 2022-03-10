@@ -1,0 +1,74 @@
+Index: src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>server.error.whitelabel.enabled=true\r\n\r\nspring.datasource.url=jdbc:mysql://localhost:3306/local?serverTimezone=Asia/Seoul&autoReconnect=true&useUnicode=true&characterEncoding=utf8\r\nspring.datasource.username=root\r\nspring.datasource.password=Tsis@123\r\nspring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver\r\n\r\n#mapper location settings\r\nmybatis.type-aliases-package=com.tsis.drs.dto\r\nmybatis.mapper-locations=classpath*:/mappers/**/*.xml\r\n\r\nspring.mail.host=smtp.gmail.com\r\nspring.mail.port=587\r\nspring.mail.username=tsis.real.15@gmail.com\r\nspring.mail.password=xltltm15rl!\r\nspring.mail.properties.mail.smtp.starttls.enable=true\r\nspring.mail.properties.mail.smtp.starttls.required=true\r\nspring.mail.properties.mail.smtp.auth=true\r\n\r\n#??? DB ??\r\npagehelper.helper-dialect=mysql\r\n\r\n# ??? ???? pageNum? ??? ? ??? ??? ??\r\npagehelper.reasonable=true\r\npagehelper.helperDialect=mysql\r\npagehelper.supportMethodsArguments=true\r\npagehelper.params=count=countSql\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+--- a/src/main/resources/application.properties	(revision 473a7cf687aa8c8e4fc43565f632668006bded21)
++++ b/src/main/resources/application.properties	(date 1646890989587)
+@@ -1,6 +1,6 @@
+ server.error.whitelabel.enabled=true
+ 
+-spring.datasource.url=jdbc:mysql://localhost:3306/local?serverTimezone=Asia/Seoul&autoReconnect=true&useUnicode=true&characterEncoding=utf8
++spring.datasource.url=jdbc:mysql://133.186.212.200:3306/local?serverTimezone=Asia/Seoul&autoReconnect=true&useUnicode=true&characterEncoding=utf8
+ spring.datasource.username=root
+ spring.datasource.password=Tsis@123
+ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+Index: src/main/java/com/tsis/drs/controller/DocumentController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.tsis.drs.controller;\r\n\r\nimport com.github.pagehelper.PageHelper;\r\nimport com.tsis.drs.dto.*;\r\nimport com.tsis.drs.service.DocumentService;\r\nimport com.tsis.drs.service.ItemService;\r\nimport com.tsis.drs.service.RequestItemsService;\r\nimport com.tsis.drs.service.UserService;\r\nimport io.swagger.annotations.ApiOperation;\r\nimport lombok.extern.slf4j.Slf4j;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.http.HttpStatus;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport java.util.Date;\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\nimport java.util.UUID;\r\n\r\n@CrossOrigin(\"*\")\r\n@RestController\r\n@RequestMapping(\"/document\")\r\n@Slf4j\r\npublic class DocumentController {\r\n\r\n    @Autowired\r\n    DocumentService documentService;\r\n\r\n    @Autowired\r\n    RequestItemsService requestItemsService;\r\n\r\n    @Autowired\r\n    UserService userService;\r\n\r\n    @ApiOperation(value = \"num = 페이징 번호, id= 사번을 통한 Document 결과 조회 (drafted_user_id : 이름)\", response = List.class)\r\n    @GetMapping(\"/{num}/{user_id}\")\r\n    public ResponseEntity<List<Document>> selectDocument(@PathVariable String num, @PathVariable String user_id) throws Exception {\r\n        User user = userService.selectOne(user_id);\r\n        int perPage = 8;\r\n        if (user.getRole()==2) {\r\n            PageHelper.startPage(Integer.parseInt(num), perPage);\r\n            return new ResponseEntity<List<Document>>(documentService.selectAll(), HttpStatus.OK);\r\n        } else {\r\n            PageHelper.startPage(Integer.parseInt(num), perPage);\r\n            return new ResponseEntity<List<Document>>(documentService.showUserD(user_id), HttpStatus.OK);\r\n        }\r\n    }\r\n\r\n//    @ApiOperation(value = \"하나의 결재 문서를 반환한다.\", response = Document.class)\r\n//    @GetMapping(\"{id}\")\r\n//    public ResponseEntity<Document> selectOne(@PathVariable String id) throws Exception {\r\n//        return new ResponseEntity<Document>(documentService.selectOne(id), HttpStatus.OK);\r\n//    }\r\n\r\n    @ApiOperation(value = \"결재문서 승인시) 단말기 상태가 '예약' -> '대여불가,예약불가'로 변경, 아니라면 '대여중,예약가능'으로 변경\")\r\n    @PutMapping(\"approval/{document_id}\")\r\n    public void documentApproval(@PathVariable String document_id) throws Exception {\r\n        log.info(\"documentApproval >>>\" + document_id);\r\n        documentService.documentApproval(document_id);\r\n    }\r\n\r\n    /**\r\n     * 기안문 최초 생성\r\n     * 예약인지 대여인지 파라메터 필요!!\r\n     */\r\n    @ApiOperation(value = \"결재문서 기안문 최초저장\", response = Document.class)\r\n    @PostMapping(\"save/{d_id}/{r_id}\")\r\n    public void insertItem(@PathVariable String d_id, @PathVariable String r_id, @RequestParam List<String> ids) {\r\n        Date d = new Date();\r\n        Document document = new Document();\r\n        UUID id = UUID.randomUUID();\r\n        document.setDocument_id(id.toString());\r\n        document.setDrafted_user_id(d_id);\r\n        document.setReviewed_user_id(r_id);\r\n        document.setDocument_status(\"검토중\");\r\n        document.setRequestdate(d);\r\n        document.getDocument_status();\r\n        documentService.insertDocument(document);\r\n\r\n        for (String iid : ids) {\r\n            Requestitems requestitems = new Requestitems();\r\n            requestitems.setDocument_id(id.toString());\r\n            requestitems.setItem_id(iid);\r\n            requestitems.setRental_date(document.getRentaldate());\r\n            requestitems.setReturn_date(document.getRentaldate());\r\n            requestItemsService.insetRequestitems(requestitems);\r\n        }\r\n\r\n    }\r\n\r\n    /**\r\n     * 관리자 승인\r\n     */\r\n    @ApiOperation(value = \"결재문서 검토자, 결재자 상태 업데이트\")\r\n    @PutMapping(\"update/{user_id}/{document_id}/{status}\")\r\n    public void documentUpdate(@PathVariable String user_id, @PathVariable String document_id, @PathVariable String status) throws Exception {\r\n        log.info(\"documentUpdate user_id >>>\" + user_id + \", document_id >> \" + document_id + \", status >> \" + status);\r\n        HashMap<String, String> map = new HashMap<>();\r\n        map.put(\"user_id\", user_id);\r\n        map.put(\"document_id\", document_id);\r\n        map.put(\"status\", status);\r\n        documentService.documentUpdate(map);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/tsis/drs/controller/DocumentController.java b/src/main/java/com/tsis/drs/controller/DocumentController.java
+--- a/src/main/java/com/tsis/drs/controller/DocumentController.java	(revision 473a7cf687aa8c8e4fc43565f632668006bded21)
++++ b/src/main/java/com/tsis/drs/controller/DocumentController.java	(date 1646888964235)
+@@ -37,7 +37,7 @@
+     @GetMapping("/{num}/{user_id}")
+     public ResponseEntity<List<Document>> selectDocument(@PathVariable String num, @PathVariable String user_id) throws Exception {
+         User user = userService.selectOne(user_id);
+-        int perPage = 8;
++        int perPage = 10;
+         if (user.getRole()==2) {
+             PageHelper.startPage(Integer.parseInt(num), perPage);
+             return new ResponseEntity<List<Document>>(documentService.selectAll(), HttpStatus.OK);
+Index: build/resources/main/mappers/Itemmapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<!DOCTYPE mapper\r\n        PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\r\n        \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\r\n\r\n<mapper namespace=\"com.tsis.drs.dao.ItemDao\">\r\n\r\n    <select id=\"selectAll\" resultType=\"Item\">\r\n        select * from item\r\n    </select>\r\n\r\n    <select id=\"selectAllLog\" parameterType=\"String\" resultType=\"ItemLog\">\r\n        select\r\n        (select name from user where user_id = D.drafted_user_id) AS name\r\n        ,R.rental_date AS rental_date\r\n        ,R.checker_name AS checker_name\r\n        ,R.return_date AS return_date\r\n        from requestitems R\r\n        left join document D on R.document_id = D.document_id\r\n        where item_id = #{item_id} AND D.document_status = '대여'\r\n        order by D.rentaldate desc\r\n    </select>\r\n\r\n    <select id=\"selectOne\" parameterType=\"String\" resultType=\"Item\">\r\n        select * from item where item_id = #{id}\r\n    </select>\r\n\r\n<!--    <select id=\"selectAll\" statementType=\"CALLABLE\" resultType=\"Item\">-->\r\n<!--        {-->\r\n<!--            CALL uSP_ITEM_R()-->\r\n<!--        }-->\r\n<!--    </select>-->\r\n\r\n\r\n\r\n    <insert id=\"insertItem\" statementType=\"CALLABLE\" parameterType=\"Item\">\r\n        {\r\n        call uSP_ITEM_CU(\r\n        #{item_id},\r\n        #{serialnum},\r\n        #{name},\r\n        #{price},\r\n        #{brand},\r\n        #{os},\r\n        #{link},\r\n        #{category},\r\n        #{status},\r\n        #{memo}\r\n        )\r\n        }\r\n    </insert>\r\n\r\n    <insert id=\"callAlwaysUpdate\" statementType=\"CALLABLE\">\r\n        {\r\n            call uSP_ALWAYS_UPDATE()\r\n        }\r\n    </insert>\r\n    <update id=\"updateItem\" statementType=\"CALLABLE\" parameterType=\"hashmap\">\r\n        {\r\n            call uSP_ITEM_STATUS_U(\r\n                #{user_id},\r\n                #{requestitmes_id},\r\n                #{item_id}\r\n            )\r\n        }\r\n    </update>\r\n</mapper>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build/resources/main/mappers/Itemmapper.xml b/build/resources/main/mappers/Itemmapper.xml
+--- a/build/resources/main/mappers/Itemmapper.xml	(revision 473a7cf687aa8c8e4fc43565f632668006bded21)
++++ b/build/resources/main/mappers/Itemmapper.xml	(date 1646889054059)
+@@ -12,6 +12,7 @@
+     <select id="selectAllLog" parameterType="String" resultType="ItemLog">
+         select
+         (select name from user where user_id = D.drafted_user_id) AS name
++        ,(select dept_name from user where user_id = D.drafted_user_id) AS dept_name
+         ,R.rental_date AS rental_date
+         ,R.checker_name AS checker_name
+         ,R.return_date AS return_date
+Index: build/resources/main/mappers/RequestItemsmapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<!DOCTYPE mapper\r\n        PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\r\n        \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\r\n\r\n<mapper namespace=\"com.tsis.drs.dao.RequestItemsDao\">\r\n\r\n    <select id=\"selectAll\" resultType=\"Requestitems\">\r\n        select * from requestitems;\r\n    </select>\r\n\r\n\r\n    <select id=\"selectOne\" parameterType=\"String\" resultType=\"Requestitems\">\r\n        select * from requestitems where REQUESTITEMS_ID = #{id}\r\n    </select>\r\n\r\n    <insert id=\"insetRequestitems\" statementType=\"CALLABLE\" parameterType=\"Requestitems\">\r\n        {\r\n            call uSP_REQUESTITEMS_C(\r\n                #{document_id},\r\n                #{item_id},\r\n                #{rental_date},\r\n                #{return_date}\r\n            )\r\n        }\r\n    </insert>\r\n\r\n    <select id=\"selectReq\" statementType=\"CALLABLE\" resultType=\"Reqitemsresponse\">\r\n        {\r\n            call uSP_REQUESTITEMS_LIST_R()\r\n        }\r\n    </select>\r\n\r\n    <select id=\"delinqunet\" statementType=\"CALLABLE\" resultType=\"Delinquent\">\r\n        {\r\n            call uSP_DELINQUENT_LIST_R()\r\n        }\r\n    </select>\r\n\r\n\r\n</mapper>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build/resources/main/mappers/RequestItemsmapper.xml b/build/resources/main/mappers/RequestItemsmapper.xml
+--- a/build/resources/main/mappers/RequestItemsmapper.xml	(revision 473a7cf687aa8c8e4fc43565f632668006bded21)
++++ b/build/resources/main/mappers/RequestItemsmapper.xml	(date 1646889054061)
+@@ -6,7 +6,7 @@
+ <mapper namespace="com.tsis.drs.dao.RequestItemsDao">
+ 
+     <select id="selectAll" resultType="Requestitems">
+-        select * from requestitems;
++        select * from requestitems
+     </select>
+ 
+ 
