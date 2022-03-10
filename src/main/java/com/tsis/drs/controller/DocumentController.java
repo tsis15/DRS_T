@@ -69,29 +69,30 @@ public class DocumentController {
 //        return new ResponseEntity<Document>(documentService.selectOne(id), HttpStatus.OK);
 //    }
 
-    @ApiOperation(value = "결재문서 승인시) 단말기 상태가 '예약' -> '대여불가,예약불가'로 변경, 아니라면 '대여중,예약가능'으로 변경")
-    @PutMapping("approval/{document_id}")
-    public void documentApproval(@PathVariable String document_id) throws Exception {
-        log.info("documentApproval >>>" + document_id);
-        documentService.documentApproval(document_id);
-    }
+//    @ApiOperation(value = "결재문서 승인시) 단말기 상태가 '예약' -> '대여불가,예약불가'로 변경, 아니라면 '대여중,예약가능'으로 변경")
+//    @PutMapping("approval/{document_id}")
+//    public void documentApproval(@PathVariable String document_id) throws Exception {
+//        log.info("documentApproval >>>" + document_id);
+//        documentService.documentApproval(document_id);
+//    }
 
     /**
      * 기안문 최초 생성
      * 예약인지 대여인지 파라메터 필요!!
      */
     @ApiOperation(value = "결재문서 기안문 최초저장", response = Document.class)
-    @PostMapping("save/{d_id}/{r_id}")
-    public void insertItem(@PathVariable String d_id, @PathVariable String r_id, @RequestParam List<String> ids) {
+    @PostMapping("save/{d_id}/{r_id}/{serialnum}/{document_status}")
+    public void insertItem(@PathVariable String d_id, @PathVariable String r_id,@PathVariable String serialnum ,@PathVariable String document_status,@RequestParam List<String> ids) {
         Date d = new Date();
         Document document = new Document();
         UUID id = UUID.randomUUID();
         document.setDocument_id(id.toString());
         document.setDrafted_user_id(d_id);
         document.setReviewed_user_id(r_id);
-        document.setDocument_status("검토중");
+        document.setTitle("단말기 대여 신청서");
         document.setRequestdate(d);
-        document.getDocument_status();
+        document.setDocument_status(document_status);
+        document.setSerialnum(serialnum);
         documentService.insertDocument(document);
 
         for (String iid : ids) {
@@ -118,5 +119,4 @@ public class DocumentController {
         map.put("status", status);
         documentService.documentUpdate(map);
     }
-
 }
