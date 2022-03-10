@@ -13,4 +13,5 @@ public interface UserService {
     public void login(User user);
     public void update(HashMap<String, Object> map);
     public List<User> selectAllReviewer(String id);
+    public List<User> Selectcondition(String input);
 }

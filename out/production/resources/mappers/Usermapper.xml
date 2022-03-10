@@ -8,10 +8,31 @@
 <!--    <select id="selectAll" resultType="User">-->
 <!--        select * from user-->
 <!--    </select>-->
-    <select id="selectAll" statementType="CALLABLE" resultType="User">
-        {
-            call uSP_USER_LIST_R()
-        }
+    <select id="selectAll" resultType="User">
+        SELECT
+         USER_ID
+        ,NAME
+        ,EMAIL
+        ,PHONE
+        ,DEPT_NAME
+        ,POSITION
+        ,ROLE
+        FROM user
+        order by name
+    </select>
+
+    <select id="selectCondition" parameterType="String" resultType="User">
+        SELECT
+        USER_ID
+        ,NAME
+        ,EMAIL
+        ,PHONE
+        ,DEPT_NAME
+        ,POSITION
+        ,ROLE
+        FROM user
+        where user_id like CONCAT('%',#{input},'%')
+        order by name
     </select>
 
     <select id="selectAllReviewer" statementType="CALLABLE" parameterType="String" resultType="User">

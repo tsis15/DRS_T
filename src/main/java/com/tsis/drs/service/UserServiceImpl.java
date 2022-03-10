@@ -63,5 +63,10 @@ public class UserServiceImpl implements UserService{
         return userDao.selectAllReviewer(id);
     }
 
+    @Override
+    public List<User> Selectcondition(String input) {
+        return userDao.selectCondition(input);
+    }
+
 
 }
