@@ -73,7 +73,7 @@ public class DocumentController {
      * 기안문 최초 생성
      * 예약인지 대여인지 파라메터 필요!!
      */
-    @CrossOrigin("*")
+
     @ApiOperation(value = "결재문서 기안문 최초저장", response = Document.class)
     @PostMapping("save/{d_id}/{r_id}/{serialnum}/{document_status}")
     public void insertItem(@PathVariable String d_id, @PathVariable String r_id,@PathVariable String serialnum ,@PathVariable String document_status,@RequestParam List<String> ids) {
