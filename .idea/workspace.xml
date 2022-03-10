@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6fc91b67-9b56-4f65-b601-231313418cc7" name="Changes" comment="add DocumentController selectOne">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsis/drs/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsis/drs/config/WebConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tsis/drs/controller/DocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsis/drs/controller/DocumentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsis/drs/dto/DocumentResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsis/drs/dto/DocumentResponse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646912524131</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add DocumentController selectOne">
+      <created>1646926909527</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1646926909527</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -182,7 +189,8 @@
     <MESSAGE value="modify DocumentController parameter" />
     <MESSAGE value="add DocumentController apname" />
     <MESSAGE value="modify DocumentController" />
-    <option name="LAST_COMMIT_MESSAGE" value="modify DocumentController" />
+    <MESSAGE value="add DocumentController selectOne" />
+    <option name="LAST_COMMIT_MESSAGE" value="add DocumentController selectOne" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
