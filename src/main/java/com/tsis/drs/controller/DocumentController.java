@@ -76,7 +76,7 @@ public class DocumentController {
 
     @ApiOperation(value = "결재문서 기안문 최초저장", response = Document.class)
     @PostMapping("save/{d_id}/{r_id}/{serialnum}/{document_status}")
-    public void insertItem(@PathVariable String d_id, @PathVariable String r_id,@PathVariable String serialnum ,@PathVariable String document_status,@RequestParam List<String> ids) {
+    public void insertItem(@PathVariable String d_id, @PathVariable String r_id,@PathVariable String serialnum ,@PathVariable String document_status,@RequestBody List<String> ids) {
         Date d = new Date();
         Document document = new Document();
         UUID id = UUID.randomUUID();

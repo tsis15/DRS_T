@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6fc91b67-9b56-4f65-b601-231313418cc7" name="Changes" comment="add DocumentController selectOne">
+    <list default="true" id="6fc91b67-9b56-4f65-b601-231313418cc7" name="Changes" comment="modify webconfig">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tsis/drs/controller/DocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsis/drs/controller/DocumentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,7 +173,21 @@
       <option name="project" value="LOCAL" />
       <updated>1646934598170</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="modify webconfig">
+      <created>1646934798256</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1646934798256</updated>
+    </task>
+    <task id="LOCAL-00013" summary="modify webconfig">
+      <created>1646934963241</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1646934963241</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -195,7 +210,8 @@
     <MESSAGE value="add DocumentController apname" />
     <MESSAGE value="modify DocumentController" />
     <MESSAGE value="add DocumentController selectOne" />
-    <option name="LAST_COMMIT_MESSAGE" value="add DocumentController selectOne" />
+    <MESSAGE value="modify webconfig" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify webconfig" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
