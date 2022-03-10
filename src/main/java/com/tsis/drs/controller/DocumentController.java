@@ -37,11 +37,11 @@ public class DocumentController {
         return new ResponseEntity<List<Document>>(documentService.selectAllProcedure(map), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "하나의 결재 문서를 반환한다.", response = Document.class)
-    @GetMapping("{id}")
-    public ResponseEntity<Document> selectOne(@PathVariable String id) throws Exception {
-        return new ResponseEntity<Document>(documentService.selectOne(id), HttpStatus.OK);
-    }
+//    @ApiOperation(value = "하나의 결재 문서를 반환한다.", response = Document.class)
+//    @GetMapping("{id}")
+//    public ResponseEntity<Document> selectOne(@PathVariable String id) throws Exception {
+//        return new ResponseEntity<Document>(documentService.selectOne(id), HttpStatus.OK);
+//    }
 
     @ApiOperation(value = "결재문서 승인시) 단말기 상태가 '예약' -> '대여불가,예약불가'로 변경, 아니라면 '대여중,예약가능'으로 변경")
     @PutMapping("approval/{document_id}")
