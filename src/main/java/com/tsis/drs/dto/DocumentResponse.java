@@ -13,4 +13,5 @@ public class DocumentResponse {
     Document document;
     String drafted_user_name;
     String reviewed_user_name;
+    String approval_user_name;
 }

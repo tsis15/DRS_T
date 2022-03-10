@@ -44,8 +44,9 @@ public class DocumentController {
                 log.info(doc.toString());
                 String drname = userService.selectOne(doc.getDrafted_user_id()).getName();
                 String rvname = userService.selectOne(doc.getReviewed_user_id()).getName();
+                String apname = userService.selectOne(doc.getApproval_user_id()).getName();
                 log.info(doc.toString());
-                drlist.add(new DocumentResponse(doc, drname, rvname));
+                drlist.add(new DocumentResponse(doc, drname, rvname,apname));
             }
             PageInfo<DocumentResponse> of = new PageInfo<DocumentResponse>(drlist);
             log.info(String.valueOf(of.getList()) + " >>>>" + num);
@@ -55,7 +56,8 @@ public class DocumentController {
             for (Document doc : list) {
                 String drname = userService.selectOne(doc.getDrafted_user_id()).getName();
                 String rvname = userService.selectOne(doc.getReviewed_user_id()).getName();
-                drlist.add(new DocumentResponse(doc, drname, rvname));
+                String apname = userService.selectOne(doc.getApproval_user_id()).getName();
+                drlist.add(new DocumentResponse(doc, drname, rvname,apname));
             }
             PageInfo<DocumentResponse> of = new PageInfo<DocumentResponse>(drlist);
             log.info(String.valueOf(of.getList()) + " >>>>" + num);

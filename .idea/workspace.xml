@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fb8af3-44f3-43e6-ab0a-b40a405a6d30" name="Changes" comment="modify DocumentController parameter">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsis/drs/controller/DrsScheduled.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsis/drs/controller/DrsScheduled.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsis/drs/controller/DocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsis/drs/controller/DocumentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsis/drs/dto/DocumentResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsis/drs/dto/DocumentResponse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646903379688</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="modify DocumentController parameter">
+      <created>1646904380364</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1646904380364</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
