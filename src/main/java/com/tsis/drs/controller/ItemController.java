@@ -63,6 +63,7 @@ public class ItemController {
     @ApiOperation(value = "하나의 단말기 정보를 저장한다 있을 시 update", response = Item.class)
     @PostMapping
     public void insertItem(@RequestBody Item item){
+        log.info(item.toString());
         itemService.insertItem(item);
     }
 

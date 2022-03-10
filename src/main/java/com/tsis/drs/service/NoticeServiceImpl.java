@@ -36,8 +36,11 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public int createNotice(Notice notice) {
-        if(notice.getNotice_id().equals("") || notice.getNotice_id() == null) { // 게시글 생성할 경우 ""으로 넘어옴
-            UUID id = UUID.randomUUID();
+        UUID id = UUID.randomUUID();
+        if(notice.getNotice_id() == null) {
+            notice.setNotice_id(id.toString());
+        }
+        else if(notice.getNotice_id().equals("")) {
             notice.setNotice_id(id.toString());
             return noticeDao.createNotice(notice);
         }
