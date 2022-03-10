@@ -78,4 +78,11 @@ public class ItemController {
         map.put("item_id", item_id);
         itemService.updateItem(map);
     }
+
+    @ApiOperation(value = "연장하기 버튼 눌렀을 때 연장이 가능한 ITEM 리스트 조회 (대여가능일경우만)", response = Item.class)
+    @GetMapping("extend/{document_id}")
+    public ResponseEntity<List<Item>> selectExtendItems(@PathVariable String document_id) throws Exception {
+        return new ResponseEntity<List<Item>>(itemService.selectExtendItems(document_id), HttpStatus.OK);
+    }
+
 }
