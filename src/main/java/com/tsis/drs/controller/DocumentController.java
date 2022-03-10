@@ -1,6 +1,7 @@
 package com.tsis.drs.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tsis.drs.dto.*;
 import com.tsis.drs.service.DocumentService;
 import com.tsis.drs.service.ItemService;
@@ -13,10 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @CrossOrigin("*")
 @RestController
@@ -35,15 +33,33 @@ public class DocumentController {
 
     @ApiOperation(value = "num = 페이징 번호, id= 사번을 통한 Document 결과 조회 (drafted_user_id : 이름)", response = List.class)
     @GetMapping("/{num}/{user_id}")
-    public ResponseEntity<List<Document>> selectDocument(@PathVariable String num, @PathVariable String user_id) throws Exception {
+    public PageInfo<DocumentResponse> selectDocument(@PathVariable int num, @PathVariable String user_id) throws Exception {
         User user = userService.selectOne(user_id);
-        int perPage = 8;
-        if (user.getRole()==2) {
-            PageHelper.startPage(Integer.parseInt(num), perPage);
-            return new ResponseEntity<List<Document>>(documentService.selectAll(), HttpStatus.OK);
+        int perPage = 10;
+        List<DocumentResponse> drlist = new ArrayList<>();
+        PageHelper.startPage(num, perPage);
+        if (user.getRole() == 2) {
+            List<Document> list = documentService.selectAll();
+            for (Document doc : list) {
+                log.info(doc.toString());
+                String drname = userService.selectOne(doc.getDrafted_user_id()).getName();
+                String rvname = userService.selectOne(doc.getReviewed_user_id()).getName();
+                log.info(doc.toString());
+                drlist.add(new DocumentResponse(doc, drname, rvname));
+            }
+            PageInfo<DocumentResponse> of = new PageInfo<DocumentResponse>(drlist);
+            log.info(String.valueOf(of.getList()) + " >>>>" + num);
+            return of;
         } else {
-            PageHelper.startPage(Integer.parseInt(num), perPage);
-            return new ResponseEntity<List<Document>>(documentService.showUserD(user_id), HttpStatus.OK);
+            List<Document> list = documentService.showUserD(user_id);
+            for (Document doc : list) {
+                String drname = userService.selectOne(doc.getDrafted_user_id()).getName();
+                String rvname = userService.selectOne(doc.getReviewed_user_id()).getName();
+                drlist.add(new DocumentResponse(doc, drname, rvname));
+            }
+            PageInfo<DocumentResponse> of = new PageInfo<DocumentResponse>(drlist);
+            log.info(String.valueOf(of.getList()) + " >>>>" + num);
+            return of;
         }
     }
 

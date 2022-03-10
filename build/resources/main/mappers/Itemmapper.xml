@@ -12,6 +12,7 @@
     <select id="selectAllLog" parameterType="String" resultType="ItemLog">
         select
         (select name from user where user_id = D.drafted_user_id) AS name
+        ,(select dept_name from user where user_id = D.drafted_user_id) AS dept_name
         ,R.rental_date AS rental_date
         ,R.checker_name AS checker_name
         ,R.return_date AS return_date
