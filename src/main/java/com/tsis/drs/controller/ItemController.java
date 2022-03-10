@@ -50,9 +50,6 @@ public class ItemController {
 
         log.info(String.valueOf(of.getList()));
 
-        List<ItemLog> testLog = itemService.selectAllLog(item_id);
-        System.out.println("testLog >> "+testLog);
-
         return of;
     }
 
