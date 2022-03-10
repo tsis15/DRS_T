@@ -38,14 +38,14 @@ public class DocumentController {
         int perPage = 10;
         List<DocumentResponse> drlist = new ArrayList<>();
         PageHelper.startPage(num, perPage);
-        String apname=null;
+
         if (user.getRole() == 2) {
             List<Document> list = documentService.selectAll();
             for (Document doc : list) {
                 log.info(doc.toString());
                 String drname = userService.selectOne(doc.getDrafted_user_id()).getName();
                 String rvname = userService.selectOne(doc.getReviewed_user_id()).getName();
-
+                String apname=null;
                 if (doc.getApproval_user_id()!=null) {
                     apname = userService.selectOne(doc.getApproval_user_id()).getName();
                 }
@@ -60,6 +60,7 @@ public class DocumentController {
             for (Document doc : list) {
                 String drname = userService.selectOne(doc.getDrafted_user_id()).getName();
                 String rvname = userService.selectOne(doc.getReviewed_user_id()).getName();
+                String apname=null;
                 if (doc.getApproval_user_id()!=null) {
                     apname = userService.selectOne(doc.getApproval_user_id()).getName();
                 }
