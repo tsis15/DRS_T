@@ -25,7 +25,7 @@
                     ,title
                     ,content
                 FROM notice N
-                ORDER BY create_date
+                ORDER BY create_date desc
     </select>
 
     <select id="noticeSelectcondition" parameterType="String" resultType="Notice">
@@ -39,7 +39,7 @@
                 ,content
             FROM notice N
             WHERE title like CONCAT('%',#{input},'%')
-            order by create_date
+            order by create_date desc
     </select>
 
     <delete id="deleteNotice" statementType="CALLABLE" parameterType="String">
